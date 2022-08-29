@@ -1,0 +1,25 @@
+.el-menu-item.is-active {
+  background-color: #0960bd !important;
+  color: #fff !important;
+}
+
+.el-sub-menu__title span:hover,
+.el-menu-item:hover {
+  color: #0960bd;
+}
+
+.el-table__header {
+  th {
+    background-color: #f2f6fc !important;
+  }
+}
+
+.el-divider--horizontal {
+  margin: 20px 0 !important;
+}
+
+.card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}

@@ -1,0 +1,25 @@
+.login-container {
+  background-image: url('@/assets/login-bg.svg');
+
+  .captcha {
+    :deep .el-form-item__content {
+      display: flex !important;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .el-input {
+        width: 130px;
+        margin-right: 20px;
+      }
+      .svg {
+        height: 38px;
+        width: 120px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+    }
+  }
+  .el-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,127 @@
+#app {
+  background: #f2f2f2;
+}
+
+/* aside */
+.logo {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.breadcrumb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .collapse {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+.el-dropdown {
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+  .el-dropdown-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .el-avatar {
+      margin-right: 8px;
+    }
+  }
+}
+
+/* nav-tab */
+.nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 0px 1px 3px #dcdfe6;
+  border-top: 1px solid #f2f2f2;
+  height: 39px;
+  overflow: hidden;
+  .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    &:hover {
+      color: #3f9eff;
+    }
+  }
+  .scrollbar {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    .scroll-content {
+      display: flex;
+      flex: 1;
+      margin-top: 5px;
+      position: relative;
+      float: left;
+      overflow: visible;
+      white-space: nowrap;
+      transition: transform 0.5s ease-in-out;
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 3px;
+        border-radius: 4px 4px 0 0;
+        border: 1px solid #dcdfe6;
+        border-bottom: 0;
+        height: 28px;
+        cursor: pointer;
+        .router-link-active {
+          color: #3f9eff;
+        }
+        & + li {
+          margin-left: 2px;
+        }
+        a {
+          padding: 0 10px 0 12px;
+          display: block;
+          color: #5f6166;
+          font-size: 14px;
+        }
+        .el-icon {
+          position: relative;
+          right: 6px;
+          &:hover {
+            color: #f56c6c;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* footer */
+footer {
+  p {
+    font-size: 12px;
+    line-height: 2;
+    color: #909399;
+    a {
+      color: #909399;
+    }
+  }
+}

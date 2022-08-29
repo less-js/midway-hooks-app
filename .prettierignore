@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+
+.local
+.output.js
+
+**/*.svg
+**/*.sh
+
+/public/*

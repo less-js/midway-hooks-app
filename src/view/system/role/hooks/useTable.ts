@@ -1,0 +1,72 @@
+import { ref } from 'vue'
+import { ConfirmBox } from '@/utils/message'
+import { IColumns } from '@/types/table'
+import { IRole } from '@/types/role'
+import { remove } from './useHttp'
+import { visible, formData } from './useForm'
+
+export const tableLoading = ref<boolean>(true)
+export const roles = ref<IRole[]>()
+
+export const columns: IColumns[] = [
+  {
+    prop: 'name',
+    label: '名称',
+    minWidth: '120',
+    sortable: true,
+  },
+  {
+    prop: 'label',
+    label: '标签',
+    minWidth: '120',
+  },
+  {
+    prop: 'remark',
+    label: '备注',
+    minWidth: '120',
+  },
+  {
+    prop: 'createdAt',
+    label: '创建时间',
+    minWidth: '180',
+    align: 'center',
+  },
+  {
+    prop: 'updatedAt',
+    label: '更新时间',
+    minWidth: '180',
+    align: 'center',
+  },
+  {
+    label: '操作',
+    prop: 'option',
+    align: 'center',
+    fixed: 'right',
+    width: '110',
+    slots: 'button',
+    options: [
+      {
+        type: 'primary',
+        icon: 'Edit',
+        method: async (row: IRole) => {
+          if (!row) return
+          const { id, name, label, remark } = row
+          formData.value = { id, name, label, remark }
+          visible.value = true
+        },
+      },
+      {
+        type: 'danger',
+        icon: 'Delete',
+        method: ({ id, name }) => {
+          if (!id) return
+          ConfirmBox(`确定删除 ${name} ?`)
+            .then(async () => {
+              await remove(id)
+            })
+            .catch(() => {})
+        },
+      },
+    ],
+  },
+]

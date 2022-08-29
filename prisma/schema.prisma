@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model SysUser {
+  id        Int      @id @default(autoincrement())
+  name      String? /// 姓名
+  username  String   @unique /// 用户名
+  nickname  String? /// 昵称
+  password  String /// 密码
+  avatar    String? /// 头像
+  phone     String?  @unique /// 手机号码
+  email     String?  @unique /// 邮箱
+  remark    String? /// 备注
+  status    Int      @default(1) /// 状态（0：禁用 1：启用 2：审核中）, default: 1，
+  createdAt DateTime @default(now()) /// 创建时间
+  updatedAt DateTime @updatedAt /// 修改时间
+
+  departments SysDepartment[] @relation("sys_department_user")
+  roles       SysRole[]       @relation("sys_role_user")
+
+  @@map("sys_users")
+}
+
+model SysRole {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique /// 角色名称
+  label     String? /// 角色标签
+  remark    String? /// 备注
+  createdAt DateTime @default(now()) /// 创建时间
+  updatedAt DateTime @updatedAt /// 修改时间
+
+  menus SysMenu[] @relation("sys_menu_role")
+  users SysUser[] @relation("sys_role_user")
+
+  @@map("sys_roles")
+}
+
+model SysDepartment {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique /// 部门名称
+  parentId  Int      @default(0) /// 上级部门ID
+  order     Int      @default(0) /// 排序
+  createdAt DateTime @default(now()) /// 创建时间
+  updatedAt DateTime @updatedAt /// 修改时间
+
+  menus SysMenu[] @relation("sys_department_menu")
+  users SysUser[] @relation("sys_department_user")
+
+  @@map("sys_departments")
+}
+
+model SysMenu {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique /// 菜单名称
+  routeName    String   @unique /// 路由名称，英文
+  routePath    String   @unique /// 路由路径
+  redirect     String? /// 重定向
+  component    String /// 组件
+  icon         String? /// 图标
+  parentId     Int? /// 父级路由id
+  isAuth       Boolean  @default(true) /// 是否需要登录
+  isCache      Boolean  @default(false) /// 是否缓存
+  hidden       Boolean  @default(false) /// 是否隐藏
+  externalLink String? /// 外链
+  order        Int      @default(0) /// 序号
+  status       Boolean  @default(true) /// 状态
+  createdAt    DateTime @default(now()) /// 创建时间
+  updatedAt    DateTime @updatedAt /// 修改时间
+
+  departments SysDepartment[] @relation("sys_department_menu")
+  roles       SysRole[]       @relation("sys_menu_role")
+
+  @@map("sys_menus")
+}
+
+model SysDictionaries {
+  id              Int      @id @default(autoincrement())
+  name            String   @unique /// 字典名称
+  aliasName       String?  @unique /// 字典别名
+  status          Boolean? /// 字典状态：启用 or 禁用
+  remark          String? /// 字典备注说明
+  enumElementType String? /// 字典元素类型：数字 or 字符串
+  enumElements    Json? /// 字典枚举元素列表，包含是否启用，label-value 键值对，value 值根据 enumElementType 而定，如： [{ isEnable: true, label: '', value: null }] or [{ isEnable: true, label: '', value: '' }]
+  createdAt       DateTime @default(now()) /// 创建时间
+  updatedAt       DateTime @updatedAt /// 修改时间
+
+  @@map("sys_dictionaries")
+}
+
+model SysModel {
+  id             Int      @id @default(autoincrement())
+  name           String   @unique /// 模型名称
+  collectionName String?  @unique /// 模型数据表名
+  description    String? /// 描述
+  fields         Json? /// 模型字段集合
+  createdAt      DateTime @default(now()) /// 创建时间
+  updatedAt      DateTime @updatedAt /// 修改时间
+
+  @@map("sys_models")
+}
+
+model SysCategories {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique /// 栏目名称
+  aliasName   String?  @unique /// 栏目别名
+  description String? /// 摘要描述
+  keyword     String? /// 关键词
+  image       String? /// 栏目图片
+  modelId     Int /// 所属模型 ID
+  createdAt   DateTime @default(now()) /// 创建时间
+  updatedAt   DateTime @updatedAt /// 修改时间
+
+  @@map("sys_categories")
+}
