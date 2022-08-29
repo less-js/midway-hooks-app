@@ -1,9 +1,9 @@
 ## hooks-vue-starter
 
-Use this template:
+Use this hooks-app:
 
 ```bash
-npx degit https://github.com/midwayjs/hooks/examples/vue ./hooks-app
+git clone https://github.com/less-js/midway-hooks-app.git
 ```
 
 Use `npm install` to install the dependencies
